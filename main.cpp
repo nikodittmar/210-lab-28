@@ -2,6 +2,9 @@
 #include <fstream>
 #include <iomanip>
 #include <list>
+#include <algorithm>
+#include <numeric>
+#include <random>
 #include "Goat.h"
 using namespace std;
 
@@ -58,6 +61,7 @@ int main() {
                 cout << "Displaying goat data.\n";
                 display_trip(trip);
                 break;
+            
             default:
                 cout << "Invalid selection.\n";
                 break;
@@ -75,14 +79,66 @@ int main_menu() {
     cout << "[2] Delete a goat\n";
     cout << "[3] List goats\n";
     cout << "[4] Quit\n";
+    cout << "[5] Sort" << endl;
+    cout << "[6] Find" << endl;
+    cout << "[7] Find total age" << endl;
+    cout << "[8] Remove old goats" << endl;
+    cout << "[9] Remove yound goats" << endl;
+    cout << "[10] Increment year" << endl;
+    cout << "[11] Decrement year" << endl;
+    cout << "[12] Shuffle order" << endl;
     cout << "Choice --> ";
     int choice;
     cin >> choice;
-    while (choice < 1 || choice > 4) {
+    while (choice < 1 || choice > 12) {
         cout << "Invalid, again --> ";
         cin >> choice;
     }
     return choice;
+}
+
+void sort_goats(list<Goat> &trip) {
+    sort(trip.begin(), trip.end());
+}
+
+void goat_exists(list<Goat> &trip) {
+    string searchKey;
+    cin >> searchKey;
+    auto it = find_if(trip.begin(), trip.end(), [searchKey](const Goat& g){ return g.get_name() == searchKey; });
+    if (it != trip.end()) {
+        cout << searchKey << " is in the trip!";
+    } else {
+        cout << searchKey << " is not in the trip!";
+    }
+}
+
+void total_age(list<Goat> &trip) {
+    int totalAge = std::accumulate(trip.begin(), trip.end(), 0, [](int sum, const Goat& g){ return sum + g.get_age(); });
+    cout << "The total age of the goats is " << totalAge << " years.";
+}
+
+void remove_old_goats(list<Goat> &trip) {
+    int max_age;
+    cin >> max_age;
+    trip.erase(remove_if(trip.begin(), trip.end(), [max_age](const Goat& g){ return g.get_age() > max_age; }), trip.end());
+}
+
+void remove_young_goats(list<Goat> &trip) {
+    int min_age;
+    cin >> min_age;
+    trip.erase(remove_if(trip.begin(), trip.end(), [min_age](const Goat& g){ return g.get_age() < min_age; }), trip.end());
+}
+
+void increment_year(list<Goat> &trip) {
+    transform(trip.begin(), trip.end(), trip.begin(), [](Goat& g) { g.set_age(g.get_age() + 1); return g; });
+}
+
+void decrement_year(list<Goat> &trip) {
+    transform(trip.begin(), trip.end(), trip.begin(), [](Goat& g) { if (g.get_age() > 0) { g.set_age(g.get_age() - 1); } return g; });
+}
+
+void shuffle_order(list<Goat> &trip) {
+    shuffle(trip.begin(), trip.end(), default_random_engine());
 }
 
 void delete_goat(list<Goat> &trip) {
