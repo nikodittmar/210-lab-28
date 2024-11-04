@@ -17,6 +17,16 @@ void add_goat(list<Goat> &trip, string [], string []);
 void display_trip(list<Goat> trip);
 int main_menu();
 
+
+void sort_goats(list<Goat> &trip);
+void goat_exists(list<Goat> &trip);
+void total_age(list<Goat> &trip);
+void remove_old_goats(list<Goat> &trip);
+void remove_young_goats(list<Goat> &trip);
+void increment_year(list<Goat> &trip);
+void decrement_year(list<Goat> &trip);
+void reverse_order(list<Goat> &trip);
+
 int main() {
     srand(time(0));
     bool again;
@@ -91,8 +101,8 @@ int main() {
                 decrement_year(trip);
                 break;
             case 12:
-                cout << "Shuffling goats." << endl;
-                shuffle_order(trip);
+                cout << "Reversing the order of the goats." << endl;
+                reverse_order(trip);
                 break;
             default:
                 cout << "Invalid selection.\n";
@@ -118,7 +128,7 @@ int main_menu() {
     cout << "[9] Remove young goats" << endl;
     cout << "[10] Increment year" << endl;
     cout << "[11] Decrement year" << endl;
-    cout << "[12] Shuffle order" << endl;
+    cout << "[12] Reverse order" << endl;
     cout << "Choice --> ";
     int choice;
     cin >> choice;
@@ -130,7 +140,7 @@ int main_menu() {
 }
 
 void sort_goats(list<Goat> &trip) {
-    sort(trip.begin(), trip.end());
+    trip.sort();
 }
 
 void goat_exists(list<Goat> &trip) {
@@ -169,8 +179,8 @@ void decrement_year(list<Goat> &trip) {
     transform(trip.begin(), trip.end(), trip.begin(), [](Goat& g) { if (g.get_age() > 0) { g.set_age(g.get_age() - 1); } return g; });
 }
 
-void shuffle_order(list<Goat> &trip) {
-    shuffle(trip.begin(), trip.end(), default_random_engine());
+void reverse_order(list<Goat> &trip) {
+    reverse(trip.begin(), trip.end());
 }
 
 void delete_goat(list<Goat> &trip) {
