@@ -139,10 +139,16 @@ int main_menu() {
     return choice;
 }
 
+// sort_goats() sorts the list of goats.
+// arguments the goat trip
+// returns none
 void sort_goats(list<Goat> &trip) {
     trip.sort();
 }
 
+// goat_exists() checks if a goat exists.
+// arguments the goat trip
+// returns none
 void goat_exists(list<Goat> &trip) {
     string searchKey;
     cin >> searchKey;
@@ -154,31 +160,49 @@ void goat_exists(list<Goat> &trip) {
     }
 }
 
+// total_age() gets the cumulative age of the goats.
+// arguments the goat trip
+// returns none
 void total_age(list<Goat> &trip) {
     int totalAge = std::accumulate(trip.begin(), trip.end(), 0, [](int sum, const Goat& g){ return sum + g.get_age(); });
     cout << "The total age of the goats is " << totalAge << " years.";
 }
 
+// remove_old_goats() removes goats above a certain age.
+// arguments the goat trip
+// returns none
 void remove_old_goats(list<Goat> &trip) {
     int max_age;
     cin >> max_age;
     trip.erase(remove_if(trip.begin(), trip.end(), [max_age](const Goat& g){ return g.get_age() > max_age; }), trip.end());
 }
 
+// remove_young_goats() removes goats below a certain age.
+// arguments the goat trip
+// returns none
 void remove_young_goats(list<Goat> &trip) {
     int min_age;
     cin >> min_age;
     trip.erase(remove_if(trip.begin(), trip.end(), [min_age](const Goat& g){ return g.get_age() < min_age; }), trip.end());
 }
 
+// increment_year() increments the age of all goats by one year.
+// arguments the goat trip
+// returns none
 void increment_year(list<Goat> &trip) {
     transform(trip.begin(), trip.end(), trip.begin(), [](Goat& g) { g.set_age(g.get_age() + 1); return g; });
 }
 
+// decrement_year() decrements the age of all goats by one year (min 0 years).
+// arguments the goat trip
+// returns none
 void decrement_year(list<Goat> &trip) {
     transform(trip.begin(), trip.end(), trip.begin(), [](Goat& g) { if (g.get_age() > 0) { g.set_age(g.get_age() - 1); } return g; });
 }
 
+// reverse_order() reverses the order of the goats in the trip.
+// arguments the goat trip
+// returns none
 void reverse_order(list<Goat> &trip) {
     reverse(trip.begin(), trip.end());
 }
