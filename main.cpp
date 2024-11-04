@@ -1,3 +1,4 @@
+// COMSC 210 | Lab 28 | Niko Dittmar
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -61,7 +62,38 @@ int main() {
                 cout << "Displaying goat data.\n";
                 display_trip(trip);
                 break;
-            
+            case 5:
+                cout << "Sorting goats" << endl;
+                sort_goats(trip);
+                break;
+            case 6:
+                cout << "Check if a goat exists." << endl;
+                goat_exists(trip);
+                break;
+            case 7:
+                cout << "Getting cumulative age of all goats." << endl;
+                total_age(trip);
+                break;
+            case 8:
+                cout << "Removing all goats above a certain age." << endl;
+                remove_old_goats(trip);
+                break;
+            case 9:
+                cout << "Removing all goats under a certain age." << endl;
+                remove_young_goats(trip);
+                break;
+            case 10:
+                cout << "Incrementing all goats ages by one year." << endl;
+                increment_year(trip);
+                break;
+            case 11:
+                cout << "Decrementing all goats ages by one year." << endl;
+                decrement_year(trip);
+                break;
+            case 12:
+                cout << "Shuffling goats." << endl;
+                shuffle_order(trip);
+                break;
             default:
                 cout << "Invalid selection.\n";
                 break;
@@ -80,10 +112,10 @@ int main_menu() {
     cout << "[3] List goats\n";
     cout << "[4] Quit\n";
     cout << "[5] Sort" << endl;
-    cout << "[6] Find" << endl;
+    cout << "[6] Check if goat exists" << endl;
     cout << "[7] Find total age" << endl;
     cout << "[8] Remove old goats" << endl;
-    cout << "[9] Remove yound goats" << endl;
+    cout << "[9] Remove young goats" << endl;
     cout << "[10] Increment year" << endl;
     cout << "[11] Decrement year" << endl;
     cout << "[12] Shuffle order" << endl;
